@@ -13,7 +13,13 @@ class GeneratePrompt:
         #     "complete": False, 
             
         # }
-        output_temp = params["output_temp"][financial_section]
+        financial_temp = params["output_temp"][financial_section]
+        output_temp = {
+            "ai_question": "if Complete all question then (your conversational reply to the user if all question and answer are complete)", 
+            "progress": 0-100, 
+            "complete": False, 
+            "data": financial_temp
+        }
         collection_order = params["collection_order"][financial_section]
         # complete_output_temp = { 
         #     "ai_question": "if Complete all question then (your conversational reply to the user if all question and answer are complete)", 
