@@ -6,7 +6,8 @@ class GeneratePrompt:
     @staticmethod
     def income_prompt(last_chat, previous_history):
         final_output_temp = { 
-            "message": "your conversational reply to the user", 
+            "question": "Ask your question to user and if any complete give thanks and tell to step",
+            "message": "your conversational reply to the user if all question and answer are complete", 
             "progress": 0-100, 
             "complete": False, 
             "data": { 
@@ -16,9 +17,6 @@ class GeneratePrompt:
             }
         }
 
-        gen_templete ={
-            'query': str
-        }
         sys_message = SystemMessage(
             content=(
                 "You are the intake guide for The Freedom Budget Method by Ida Lindvall (lilyvall.com). "
@@ -37,8 +35,8 @@ class GeneratePrompt:
                     "other_income: Other income (child support, government payments, distributions — may  be zero)"
 
                 f"Finally if all data are completly given then update complete value true Give the response the this following structure hardly {final_output_temp}"
-                f"Other way give ask the query and follow this structure {gen_templete}"
                 "And all response must After every user reply, respond with ONLY valid JSON in this exact structure — no text before or after, no markdown fence "
+                "If user last chat like user answer are not relevent with the question then again repeat the question and tell them to answe"
             )
         )
 
