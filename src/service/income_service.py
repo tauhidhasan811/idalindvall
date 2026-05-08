@@ -12,11 +12,17 @@ class IncomeService:
         # "sections" :["income", "essentials", 'committed_money', "irregular_expense", "net_position"]
         last_message, history = ProcessData.process_chat_history(chat_history=chat_history)
 
-        if financial_section == "income":
-            prompt = GeneratePrompt.income_prompt(last_chat=last_message, previous_history=history)
-            
-        elif financial_section == "essentials":
-            prompt = GeneratePrompt.essentials_prompt(last_chat=last_message, previous_history=history)
+        prompt = GeneratePrompt.common_prompt(
+                    financial_section=financial_section,
+                    last_chat=last_message, 
+                    previous_history=history
+                )
+
+        # if financial_section == "income":
+        #     prompt = GeneratePrompt.income_prompt(last_chat=last_message, previous_history=history)
+
+        # elif financial_section == "essentials":
+        #     prompt = GeneratePrompt.essentials_prompt(last_chat=last_message, previous_history=history)
         
         response = chat_model.get_response(prompt=prompt)
         print(type(response))
