@@ -1,33 +1,37 @@
-# import anthropic
-# from dotenv import load_dotenv
+from openpyxl import load_workbook
+from openpyxl.styles import PatternFill, Font
 
-# load_dotenv()
+# Load the workbook
+file_path = 'Freedom.xlsx'  # Replace with the path to your Excel file
+wb = load_workbook(file_path)
 
-# client = anthropic.Anthropic()
+# Value to update in B12
+new_value = 'New Value'  # Replace with the value you want to set
 
-# try:
-#     message = client.messages.create(
-#         model="claude-haiku-4-5-20251001",  # ← from your available models list
-#         max_tokens=1024,
-#         messages=[
-#             {"role": "user", "content": "Hello, Claude! Are you working?"}
-#         ]
-#     )
-#     print("Success! Response from Claude:")
-#     print(message.content[0].text)
+# Iterate through all sheets in the workbook
+for sheet in wb.sheetnames:
+    ws = wb[sheet]
+    
+    # Get the cell B12
+    cell = ws['B12']
+    
+    # Store the individual properties of the original formatting
+    original_fill = cell.fill
+    original_font = cell.font
+    
+    # Update the cell value
+    cell.value = new_value
+    
+    # Recreate the fill and font styles by directly passing their properties
+    # Re-assign new instances based on the original properties
+    cell.fill = PatternFill(start_color=original_fill.start_color, 
+                            end_color=original_fill.end_color, 
+                            fill_type=original_fill.fill_type)
+    cell.font = Font(name=original_font.name, size=original_font.size, 
+                     bold=original_font.bold, italic=original_font.italic, 
+                     color=original_font.color)
 
-# except anthropic.AuthenticationError:
-#     print("Error: Your API key is invalid.")
-# except anthropic.RateLimitError:
-#     print("Error: You have hit your rate limit.")
-# except Exception as e:
-#     print(f"An error occurred: {e}")
+# Save the modified workbook
+wb.save('updated_file.xlsx')  # This will save the updated file as a new one
 
-
-from src.config.config_anthropic import ConfigAnthropic
-
-model = ConfigAnthropic().get_anthropic_model()
-
-response = model.invoke("hi")
-
-print(response)
+print("Cell values updated successfully!")
