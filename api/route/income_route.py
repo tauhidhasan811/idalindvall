@@ -13,7 +13,10 @@ chat_model = ChatController()
 @router.post('/chat')
 async def create_new_session(chat_data: ChatSchema):
     chat_history_dict = [item.dict() for item in chat_data.chat_history]
-    response = IncomeService.analysis_chat(chat_history=chat_history_dict, chat_model=chat_model)
+    financial_section = chat_data.financial_section
+    response = IncomeService.analysis_chat(financial_section=financial_section,
+                                           chat_history=chat_history_dict, 
+                                           chat_model=chat_model)
 
     # response = chat_model.get_response(prompt=prompt)
 

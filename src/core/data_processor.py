@@ -34,7 +34,7 @@ class ProcessData:
         # Step 4: Remove newlines and extra spaces
         cleaned = re.sub(r'\s+', ' ', cleaned).strip()
 
-        print(f"Cleaned text: {cleaned}")  # For debugging, see how it's being cleaned.
+        # print(f"Cleaned text: {cleaned}")  # For debugging, see how it's being cleaned.
 
         # Try parsing it as JSON first
         try:
