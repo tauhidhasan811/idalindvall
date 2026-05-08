@@ -5,35 +5,7 @@ from typing import List, Dict
 class ProcessData:
 
     @staticmethod
-    def read_all_session_data():
-        path = r'data\session_data\session_data.json'
-        json_data = {}
-        with open(path, 'r', encoding='utf-8') as f:
-            json_data = json.load(f)
-
-        # print(json_data)
-        return json_data
-
-    @staticmethod
-    def update_session_data(session_data: list):
-        path = r'data\session_data\session_data.json'
-        json_data = {}
-        with open(path, 'r', encoding='utf-8') as f:
-            json_data = json.load(f)
-
-        print(json_data)
-        session_id = str(uuid4())
-        if session_id in json_data:
-            session_id = str(uuid4())
-        json_data[session_id] = session_data
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump(json_data, f, indent=4)
-        
-        return session_id
-
-
-    @staticmethod
-    def ProcessChat(chat_history: List[Dict]):
+    def process_chat_history(chat_history: List[Dict]):
         last_conv = {}
         if len(chat_history)> 0:
             chat = chat_history[-1]
