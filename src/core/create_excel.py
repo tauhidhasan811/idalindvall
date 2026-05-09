@@ -14,9 +14,9 @@ def get_top_left_cell(ws, cell_addr):
 
 class CreateExcel:
     def __init__(self, f_name: str = "update"):
-        os.makedirs('data', exist_ok=True)
-        self.file_path = "Freedom.xlsx"
-        self.output_path = f"data/{f_name}.xlsx"
+        os.makedirs('data/files', exist_ok=True)
+        self.file_path = r"data\Budget_Method_templete.xlsx"
+        self.output_path = f"data/files/{f_name}.xlsx"
         self.budget_method_names = ["Command Center", "Irregular Expense System", "Net Position Snapshot", "Monthly Activation"]
 
 
