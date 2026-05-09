@@ -95,3 +95,15 @@ params = {
         }
     }
 }
+
+cell_design = {
+    "Command Center":{
+        "B11", "B12", "B13",
+            "D19", "D20", "D21", "D22",
+            "B28", "B32", "B33", "B34", "B35"
+    },
+    "Irregular Expense System": {}, 
+    "Net Position Snapshot": {}, 
+    "Monthly Activation": {}
+}
+            

@@ -59,74 +59,9 @@ class GeneratePrompt:
     
 
     @staticmethod
-    def budget_method_prompt(input_data):
-        # final_output_temp = { 
-        #     "ai_question": "Ask your question to user and if any complete give thanks and tell to step",
-        #     "progress": 0-100, 
-        #     "complete": False, 
-            
-        # }
-        # output_temp = {
-        #     "monthly_income": {
-        #         "primary_income": "float",
-        #         "secondary_income": "float",
-        #         "other_income": "float",
-        #         "total_monthly_income": "float",
-        #         "currency": "string"
-        #     },
-        #     "structural_allocation": {
-        #         "essentials": {
-        #             "suggested_percentage": "float",
-        #             "your_percentage": "float",
-        #             "allocated_amount": "float",
-        #             "status": "string"
-        #         },
-        #         "wealth_building": {
-        #             "suggested_percentage": "float",
-        #             "your_percentage": "float/100",
-        #             "allocated_amount": "float",
-        #             "status": "string"
-        #         },
-        #         "future_buffer": {
-        #             "suggested_percentage": "float",
-        #             "your_percentage": "float/100",
-        #             "allocated_amount": "float",
-        #             "status": "string"
-        #         },
-        #         "guilt_free_living": {
-        #             "suggested_percentage": "float",
-        #             "your_percentage": "float/100",
-        #             "allocated_amount": "float",
-        #             "status": "string"
-        #         },
-        #         "total_allocated_percentage": "float/100",
-        #         "structure_status": "string"
-        #     },
-        #     "irregular_expense_provision": {
-        #         "monthly_irregular_provision": "float",
-        #         "included_in": "string"
-        #     },
-        #     "automation_reminder": {
-        #         "wealth_building_transfer": {
-        #             "amount": "float",
-        #             "instruction": "string"
-        #         },
-        #         "future_buffer_transfer": {
-        #             "amount": "float",
-        #             "instruction": "string"
-        #         },
-        #         "guilt_free_living_transfer": {
-        #             "amount": "float",
-        #             "instruction": "string"
-        #         },
-        #         "irregular_provision_transfer": {
-        #             "amount": "float",
-        #             "instruction": "string"
-        #         }
-        #     }
-        # }
+    def budget_method_prompt(input_data, budget_method_name):
 
-        output_temp = budget_prompt_temp["Command Center"]
+        output_temp = budget_prompt_temp[budget_method_name]
         sys_message = SystemMessage(
             content=(
                 "You are the intake guide for The Freedom Budget Method by Ida Lindvall. "
