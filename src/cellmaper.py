@@ -64,24 +64,23 @@ def get_cell_map(data, budget_method_name):
     # Net Position Snapshot
     # =========================
     elif budget_method_name == "Net Position Snapshot":
-        print(budget_method_name)
         return {
 
             # Liquidity Reserve
-            "B12": data["Net Position Snapshot"]["liquidityReserve"]["items"]["Cash & Immediate Access Buffers"]["currentValue"],
+            "B12": data["liquidityReserve"]["items"]["Cash & Immediate Access Buffers"]["currentValue"],
 
             # Wealth Velocity Assets
-            "B16": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Investments (funds, stocks, ETFs)"]["currentValue"],
-            "B17": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Pension / retirement accounts"]["currentValue"],
-            "B18": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Property — full market value"]["currentValue"],
-            "B19": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Other wealth-building assets"]["currentValue"],
+            "B16": data["wealthVelocityAssets"]["items"]["Investments (funds, stocks, ETFs)"]["currentValue"],
+            "B17": data["wealthVelocityAssets"]["items"]["Pension / retirement accounts"]["currentValue"],
+            "B18": data["wealthVelocityAssets"]["items"]["Property — full market value"]["currentValue"],
+            "B19": data["wealthVelocityAssets"]["items"]["Other wealth-building assets"]["currentValue"],
 
             # Structural Liabilities
-            "B24": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Mortgage"]["currentValue"],
-            "B25": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Car loan"]["currentValue"],
-            "B26": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Student loans"]["currentValue"],
-            "B27": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Credit cards & short-term debt"]["currentValue"],
-            "B28": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Other liabilities"]["currentValue"],
+            "B24": data["structuralLiabilities"]["items"]["Mortgage"]["currentValue"],
+            "B25": data["structuralLiabilities"]["items"]["Car loan"]["currentValue"],
+            "B26": data["structuralLiabilities"]["items"]["Student loans"]["currentValue"],
+            "B27": data["structuralLiabilities"]["items"]["Credit cards & short-term debt"]["currentValue"],
+            "B28": data["structuralLiabilities"]["items"]["Other liabilities"]["currentValue"],
         }
 
     # =========================

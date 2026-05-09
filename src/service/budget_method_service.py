@@ -2,11 +2,14 @@ from src.core.generate_prompt import GeneratePrompt
 from src.core.data_processor import ProcessData
 from src.core.create_excel import CreateExcel
 from api.schema.budget_method_schema import BudgetMethodInput
+from src.config.config_cloudinary import ConfigCloudinary
+from uuid import uuid4
+
 
 class BudgetMethodService:
 
     @staticmethod
-    def calculate_data(user_input, chat_model):
+    def calculate_data(user_input, chat_model, cloudinary: ConfigCloudinary):
 
         data ={}
         methods = ["Command Center", "Irregular Expense System", "Net Position Snapshot", "Monthly Activation"]
@@ -23,12 +26,14 @@ class BudgetMethodService:
         print('*' * 40)
         print(type(data))
         print('*' * 40)
-
         print('=' * 60)
 
-        excel = CreateExcel()
-        excel.update_excel(data=data)
-        return data
+        f_name = str(uuid4())
+        excel = CreateExcel(f_name=f_name)
+        path = excel.update_excel(data=data)
+
+        result = cloudinary.upload_data_to_cloudinary(path)
+        return result
     
     @staticmethod
     def convert_data_to_dict(budget_method: BudgetMethodInput):

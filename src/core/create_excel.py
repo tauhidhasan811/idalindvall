@@ -1,3 +1,4 @@
+import os
 import copy
 from openpyxl import load_workbook
 from src.cellmaper import get_cell_map
@@ -12,9 +13,10 @@ def get_top_left_cell(ws, cell_addr):
 
 
 class CreateExcel:
-    def __init__(self):
+    def __init__(self, f_name: str = "update"):
+        os.makedirs('data', exist_ok=True)
         self.file_path = "Freedom.xlsx"
-        self.output_path = "updated_file.xlsx"
+        self.output_path = f"data/{f_name}.xlsx"
         self.budget_method_names = ["Command Center", "Irregular Expense System", "Net Position Snapshot", "Monthly Activation"]
 
 
@@ -54,4 +56,6 @@ class CreateExcel:
                     cell.number_format = '#,##0 "kr"'
 
         wb.save(self.output_path)
+        print(wb.save(self.output_path))
         print("All cells updated successfully!")
+        return self.output_path
