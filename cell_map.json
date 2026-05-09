@@ -1,0 +1,56 @@
+"monthly_income": {
+        "primary_income": "B11",
+        "secondary_income": "B12",
+        "other_income": "B13",
+        "num_formate" #,##0 "kr"
+
+    },
+    "structural_allocation": {
+        "essentials": {
+            "suggested_percentage": "B19",
+            "your_percentage": "C19",
+            "allocated_amount": "D19",
+            "status": "string"
+        },
+        "wealth_building": {
+            "suggested_percentage": "B20",
+            "your_percentage": "c20",
+            "allocated_amount": "D20",
+            "status": "E19"
+        },
+        "future_buffer": {
+            "suggested_percentage": "B21",
+            "your_percentage": "C21",
+            "allocated_amount": "D21",
+            "status": "E21"
+        },
+        "guilt_free_living": {
+            "suggested_percentage": "B22",
+            "your_percentage": "C22",
+            "allocated_amount": "D22",
+            "status": "E22"
+        },
+        "structure_status": "E24"
+    },
+    "irregular_expense_provision": {
+        "monthly_irregular_provision": "B28",
+        "included_in": "string"
+    },
+    "automation_reminder": {
+        "wealth_building_transfer": {
+            "amount": "B32",
+            "instruction": "C32"
+        },
+        "future_buffer_transfer": {
+            "amount": "B33",
+            "instruction": "C33"
+        },
+        "guilt_free_living_transfer": {
+            "amount": "B34",
+            "instruction": "C34"
+        },
+        "irregular_provision_transfer": {
+            "amount": "B35",
+            "instruction": "C35"
+        }
+    }

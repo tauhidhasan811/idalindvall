@@ -1,7 +1,8 @@
 from langchain.messages import HumanMessage, SystemMessage, AIMessage
+
 from langchain_core.prompts import PromptTemplate
 from src.hyperparameter import params
-
+from src.budget_method_output_parameters import budget_prompt_temp
 class GeneratePrompt:
 
 
@@ -36,6 +37,7 @@ class GeneratePrompt:
                 f"Finally if all data are completly given then update complete value true Give the response the this following structure hardly {output_temp} "
                 "And all response must After every user reply, respond with ONLY valid JSON in this exact structure — no text before or after, no markdown fence "
                 "If user last chat like user answer are not relevent with the question then again repeat the question and tell them to answe"
+                
             )
         )
 
@@ -64,66 +66,67 @@ class GeneratePrompt:
         #     "complete": False, 
             
         # }
-        output_temp = {
-            "monthly_income": {
-                "primary_income": "float",
-                "secondary_income": "float",
-                "other_income": "float",
-                "total_monthly_income": "float",
-                "currency": "string"
-            },
-            "structural_allocation": {
-                "essentials": {
-                    "suggested_percentage": "float",
-                    "your_percentage": "float",
-                    "allocated_amount": "float",
-                    "status": "string"
-                },
-                "wealth_building": {
-                    "suggested_percentage": "float",
-                    "your_percentage": "float",
-                    "allocated_amount": "float",
-                    "status": "string"
-                },
-                "future_buffer": {
-                    "suggested_percentage": "float",
-                    "your_percentage": "float",
-                    "allocated_amount": "float",
-                    "status": "string"
-                },
-                "guilt_free_living": {
-                    "suggested_percentage": "float",
-                    "your_percentage": "float",
-                    "allocated_amount": "float",
-                    "status": "string"
-                },
-                "total_allocated_percentage": "float",
-                "structure_status": "string"
-            },
-            "irregular_expense_provision": {
-                "monthly_irregular_provision": "float",
-                "included_in": "string"
-            },
-            "automation_reminder": {
-                "wealth_building_transfer": {
-                    "amount": "float",
-                    "instruction": "string"
-                },
-                "future_buffer_transfer": {
-                    "amount": "float",
-                    "instruction": "string"
-                },
-                "guilt_free_living_transfer": {
-                    "amount": "float",
-                    "instruction": "string"
-                },
-                "irregular_provision_transfer": {
-                    "amount": "float",
-                    "instruction": "string"
-                }
-            }
-        }
+        # output_temp = {
+        #     "monthly_income": {
+        #         "primary_income": "float",
+        #         "secondary_income": "float",
+        #         "other_income": "float",
+        #         "total_monthly_income": "float",
+        #         "currency": "string"
+        #     },
+        #     "structural_allocation": {
+        #         "essentials": {
+        #             "suggested_percentage": "float",
+        #             "your_percentage": "float",
+        #             "allocated_amount": "float",
+        #             "status": "string"
+        #         },
+        #         "wealth_building": {
+        #             "suggested_percentage": "float",
+        #             "your_percentage": "float/100",
+        #             "allocated_amount": "float",
+        #             "status": "string"
+        #         },
+        #         "future_buffer": {
+        #             "suggested_percentage": "float",
+        #             "your_percentage": "float/100",
+        #             "allocated_amount": "float",
+        #             "status": "string"
+        #         },
+        #         "guilt_free_living": {
+        #             "suggested_percentage": "float",
+        #             "your_percentage": "float/100",
+        #             "allocated_amount": "float",
+        #             "status": "string"
+        #         },
+        #         "total_allocated_percentage": "float/100",
+        #         "structure_status": "string"
+        #     },
+        #     "irregular_expense_provision": {
+        #         "monthly_irregular_provision": "float",
+        #         "included_in": "string"
+        #     },
+        #     "automation_reminder": {
+        #         "wealth_building_transfer": {
+        #             "amount": "float",
+        #             "instruction": "string"
+        #         },
+        #         "future_buffer_transfer": {
+        #             "amount": "float",
+        #             "instruction": "string"
+        #         },
+        #         "guilt_free_living_transfer": {
+        #             "amount": "float",
+        #             "instruction": "string"
+        #         },
+        #         "irregular_provision_transfer": {
+        #             "amount": "float",
+        #             "instruction": "string"
+        #         }
+        #     }
+        # }
 
+        output_temp = budget_prompt_temp["Command Center"]
         sys_message = SystemMessage(
             content=(
                 "You are the intake guide for The Freedom Budget Method by Ida Lindvall. "
