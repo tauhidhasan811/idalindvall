@@ -4,6 +4,7 @@ from src.core.create_excel import CreateExcel
 from api.schema.budget_method_schema import BudgetMethodInput
 from src.config.config_cloudinary import ConfigCloudinary
 from uuid import uuid4
+import os
 
 
 class BudgetMethodService:
@@ -33,6 +34,7 @@ class BudgetMethodService:
         path = excel.update_excel(data=data)
 
         result = cloudinary.upload_data_to_cloudinary(path)
+        os.remove(path)
         return result
     
     @staticmethod

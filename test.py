@@ -14,6 +14,3 @@
 # result = cloudinary.upload_data_to_cloudinary('updated_file.xlsx')
 # print(result)
 
-from uuid import uuid4
-id = uuid4()
-print(str(id))
