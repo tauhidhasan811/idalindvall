@@ -10,170 +10,314 @@
 
 from src.core.create_excel import CreateExcel
 
-data = {
-    "Command Center": {
-        "monthly_income": {
-            "primary_income": 85000.0,
-            "secondary_income": 15000.0,
-            "other_income": 5000.0,
-        },
+# data = {
+#     "Command Center": {
+#         "monthly_income": {
+#             "primary_income": 85000.0,
+#             "secondary_income": 15000.0,
+#             "other_income": 5000.0,
+#         },
 
-        "structural_allocation": {
-            "essentials": {
-                "your_percentage": 52.5,
-            },
+#         "structural_allocation": {
+#             "essentials": {
+#                 "suggested_percentage": 50,
+#                 "your_percentage": 52.5,
+#                 "allocated_amount": 55125.0,
+#                 "status": "Healthy"
+#             },
 
-            "wealth_building": {
-                "your_percentage": 18.0,
-                "status": "Good"
-            },
+#             "wealth_building": {
+#                 "suggested_percentage": 20,
+#                 "your_percentage": 18.0,
+#                 "allocated_amount": 18900.0,
+#                 "status": "Good"
+#             },
 
-            "future_buffer": {
-                "your_percentage": 12.0,
-                "status": "Strong"
-            },
+#             "future_buffer": {
+#                 "suggested_percentage": 10,
+#                 "your_percentage": 12.0,
+#                 "allocated_amount": 12600.0,
+#                 "status": "Strong"
+#             },
 
-            "guilt_free_living": {
-                "your_percentage": 17.5,
-                "status": "Balanced"
-            },
-        },
+#             "guilt_free_living": {
+#                 "suggested_percentage": 20,
+#                 "your_percentage": 17.5,
+#                 "allocated_amount": 18375.0,
+#                 "status": "Balanced"
+#             },
 
-        "irregular_expense_provision": {
-            "monthly_irregular_provision": 8500.0,
-        }
-    },
+#             "total_allocated_percentage": 100.0,
+#             "structure_status": "SYSTEM STABLE"
+#         },
 
-    "Irregular Expense System": {
-        "categories": {
+#         "irregular_expense_provision": {
+#             "monthly_irregular_provision": 8500.0,
+#             "included_in": "Future Buffer"
+#         },
 
-            "Home & Property": {
-                "Home insurance (annual)": {
-                    "annualCost": 24000.0
-                },
+#         "automation_reminder": {
+#             "wealth_building_transfer": {
+#                 "amount": 18900.0,
+#                 "instruction": "Transfer to investment account automatically"
+#             },
 
-                "Home maintenance & repairs": {
-                    "annualCost": 36000.0
-                }
-            },
+#             "future_buffer_transfer": {
+#                 "amount": 12600.0,
+#                 "instruction": "Transfer to emergency savings"
+#             },
 
-            "Transport": {
-                "Car insurance (annual)": {
-                    "annualCost": 48000.0
-                },
+#             "guilt_free_living_transfer": {
+#                 "amount": 18375.0,
+#                 "instruction": "Transfer to spending account"
+#             },
 
-                "Car service / MOT": {
-                    "annualCost": 18000.0
-                },
+#             "irregular_provision_transfer": {
+#                 "amount": 8500.0,
+#                 "instruction": "Transfer to irregular expense reserve"
+#             }
+#         }
+#     },
 
-                "Road tax": {
-                    "annualCost": 12000.0
-                }
-            },
+#     "Irregular Expense System": {
+#         "categories": {
+#             "Home & Property": {
+#                 "Home insurance (annual)": {
+#                     "annualCost": 24000.0,
+#                     "monthlyProvision": 2000.0,
+#                     "notes": "Renew every January",
+#                     "category": "Home & Property"
+#                 },
 
-            "Family": {
-                "School fees / activities": {
-                    "annualCost": 60000.0
-                },
+#                 "Home maintenance & repairs": {
+#                     "annualCost": 36000.0,
+#                     "monthlyProvision": 3000.0,
+#                     "notes": "General repairs",
+#                     "category": "Home & Property"
+#                 }
+#             },
 
-                "Birthday & Christmas gifts": {
-                    "annualCost": 15000.0
-                }
-            },
+#             "Transport": {
+#                 "Car insurance (annual)": {
+#                     "annualCost": 48000.0,
+#                     "monthlyProvision": 4000.0,
+#                     "notes": "Premium coverage",
+#                     "category": "Transport"
+#                 },
 
-            "Lifestyle": {
-                "Holidays & travel": {
-                    "annualCost": 85000.0
-                },
+#                 "Road tax": {
+#                     "annualCost": 12000.0,
+#                     "monthlyProvision": 1000.0,
+#                     "notes": "",
+#                     "category": "Transport"
+#                 }
+#             }
+#         },
 
-                "Clothing & seasonal wardrobe": {
-                    "annualCost": 25000.0
-                }
-            },
+#         "totals": {
+#             "totalAnnualIrregularCosts": 120000.0,
+#             "totalMonthlyProvision": 10000.0,
+#             "currency": "kr",
+#             "note": "This feeds into your Command Center automatically"
+#         },
 
-            "Health": {
-                "Dental / medical (annual)": {
-                    "annualCost": 10000.0
-                }
-            },
+#         "surpriseEliminationScore": {
+#             "label": "How well is your structure engineering out financial volatility?",
+#             "monthlyProvisionRunning": 10000.0,
+#             "annualCostsCovered": True,
+#             "coverageStatus": "Fully Covered",
+#             "monthsOfExpensesProvisioned": 12.0,
+#             "target": 12.0,
+#             "targetStatus": "Target Achieved"
+#         }
+#     },
 
-            "Other": {
-                "Other annual cost 1": {
-                    "annualCost": 5000.0
-                },
+#     "Net Position Snapshot": {
+#         "liquidityReserve": {
+#             "label": "Cash & immediately accessible funds.",
+#             "target": "5–10% of total assets",
 
-                "Other annual cost 2": {
-                    "annualCost": 7000.0
-                },
+#             "items": {
+#                 "Cash & Immediate Access Buffers": {
+#                     "currentValue": 250000.0,
+#                     "targetStatus": "Healthy"
+#                 }
+#             },
 
-                "Other annual cost 3": {
-                    "annualCost": 9000.0
-                }
-            }
-        }
-    },
+#             "total": 250000.0
+#         },
 
-    "Net Position Snapshot": {
-        "Net Position Snapshot": {
+#         "wealthVelocityAssets": {
+#             "label": "Investments and property assets.",
 
-            "liquidityReserve": {
-                "items": {
-                    "Cash & Immediate Access Buffers": {
-                        "currentValue": 250000.0
-                    }
-                }
-            },
+#             "items": {
+#                 "Investments (funds, stocks, ETFs)": {
+#                     "currentValue": 450000.0
+#                 },
 
-            "wealthVelocityAssets": {
-                "items": {
+#                 "Pension / retirement accounts": {
+#                     "currentValue": 350000.0
+#                 },
 
-                    "Investments (funds, stocks, ETFs)": {
-                        "currentValue": 450000.0
-                    },
+#                 "Property — full market value": {
+#                     "currentValue": 6500000.0,
+#                     "notes": "Current estimated market value"
+#                 },
 
-                    "Pension / retirement accounts": {
-                        "currentValue": 350000.0
-                    },
+#                 "Other wealth-building assets": {
+#                     "currentValue": 100000.0
+#                 }
+#             },
 
-                    "Property — full market value": {
-                        "currentValue": 6500000.0
-                    },
+#             "total": 7400000.0,
+#             "targetStatus": "Growing"
+#         },
 
-                    "Other wealth-building assets": {
-                        "currentValue": 100000.0
-                    }
-                }
-            },
+#         "structuralLiabilities": {
+#             "label": "Outstanding liabilities.",
 
-            "structuralLiabilities": {
-                "items": {
+#             "items": {
+#                 "Mortgage": {
+#                     "currentValue": 3200000.0,
+#                     "notes": "Remaining home loan"
+#                 },
 
-                    "Mortgage": {
-                        "currentValue": 3200000.0
-                    },
+#                 "Car loan": {
+#                     "currentValue": 180000.0
+#                 },
 
-                    "Car loan": {
-                        "currentValue": 180000.0
-                    },
+#                 "Student loans": {
+#                     "currentValue": 90000.0
+#                 },
 
-                    "Student loans": {
-                        "currentValue": 90000.0
-                    },
+#                 "Credit cards & short-term debt": {
+#                     "currentValue": 25000.0
+#                 },
 
-                    "Credit cards & short-term debt": {
-                        "currentValue": 25000.0
-                    },
+#                 "Other liabilities": {
+#                     "currentValue": 10000.0
+#                 }
+#             },
 
-                    "Other liabilities": {
-                        "currentValue": 10000.0
-                    }
-                }
-            }
-        }
-    },
+#             "total": 3505000.0,
+#             "targetStatus": "Manageable"
+#         },
 
-    "Monthly Activation": {}
-}
+#         "propertyEquity": {
+#             "label": "True ownership stake.",
+#             "propertyMarketValue": 6500000.0,
+#             "outstandingMortgage": 3200000.0,
+#             "truePropertyEquity": 3300000.0,
+#             "notes": "Property value minus mortgage"
+#         },
+
+#         "netStructuralPosition": {
+#             "value": 3895000.0,
+#             "status": "SYSTEM STABLE",
+#             "notes": "Financial structure is healthy",
+#             "currency": "kr"
+#         },
+
+#         "structuralBenchmarks": {
+#             "label": "Financial benchmark indicators.",
+
+#             "items": {
+#                 "Liquidity Reserve %": {
+#                     "value": 6.2,
+#                     "target": "5–10% of total assets"
+#                 },
+
+#                 "Investments & Pension %": {
+#                     "value": 21.5,
+#                     "target": "Growing year on year"
+#                 },
+
+#                 "Property Equity %": {
+#                     "value": 44.0,
+#                     "target": "Your ownership share"
+#                 },
+
+#                 "Loan-to-Value (mortgage)": {
+#                     "value": 49.2,
+#                     "target": "<80% — under 70% is strong"
+#                 },
+
+#                 "Consumer Debt Ratio": {
+#                     "value": 1.8,
+#                     "target": "<5% of total assets"
+#                 }
+#             }
+#         }
+#     },
+
+#     "Monthly Activation": {
+#         "This Month": {
+#             "overview": {
+#                 "month": "May 2026",
+#                 "incomeThisMonth": 105000.0,
+#                 "structuralChanges": "Salary increased by 5%",
+#                 "notes": {
+#                     "income": "Income updated",
+#                     "structuralChanges": "Added additional savings goal"
+#                 }
+#             },
+
+#             "netPositionThisMonth": {
+#                 "systemStatus": "SYSTEM STABLE",
+#                 "statusNote": "Complete checklist and continue."
+#             },
+
+#             "monthlyActivationChecklist": {
+#                 "label": "Monthly review checklist.",
+
+#                 "items": {
+#                     "income": {
+#                         "task": "Review monthly income",
+#                         "notes": "Confirmed",
+#                         "category": "Income",
+#                         "completed": True
+#                     },
+
+#                     "wealthBuilding": {
+#                         "task": "Confirm investment transfer",
+#                         "notes": "Transfer completed",
+#                         "category": "Wealth Building",
+#                         "completed": True
+#                     },
+
+#                     "futureBuffer": {
+#                         "task": "Confirm emergency savings transfer",
+#                         "notes": "Completed",
+#                         "category": "Future Buffer",
+#                         "completed": True
+#                     },
+
+#                     "guiltFree": {
+#                         "task": "Transfer guilt-free spending amount",
+#                         "notes": "Completed",
+#                         "category": "Lifestyle",
+#                         "completed": True
+#                     }
+#                 },
+
+#                 "allCompleted": True
+#             },
+
+#             "nextSteps": {
+#                 "nextReviewDate": "2026-06-01",
+#                 "primaryStructuralFocus": "Increase investment allocation",
+#                 "notes": "Reduce unnecessary subscriptions",
+
+#                 "hints": {
+#                     "nextReviewDate": "Set reminder now",
+#                     "primaryStructuralFocus": "Focus on one goal only"
+#                 }
+#             }
+#         }
+#     }
+# }
+
+data = {'Command Center': {'monthly_income': {'primary_income': 5200.0, 'secondary_income': 850.0, 'other_income': 200.0}, 'structural_allocation': {'essentials': {'your_percentage': 56.04}, 'wealth_building': {'your_percentage': 13.48, 'status': ''}, 'future_buffer': {'your_percentage': 30.48, 'status': ''}, 'guilt_free_living': {'your_percentage': 0.0, 'status': ''}}, 'irregular_expense_provision': {'monthly_irregular_provision': 425.0}}, 'Irregular Expense System': {'categories': {'Home & Property': {'Home insurance (annual)': {'annualCost': 0.0}, 'Home maintenance & repairs': {'annualCost': 0.0}}, 'Transport': {'Car insurance (annual)': {'annualCost': 0.0}, 'Car service / MOT': {'annualCost': 1200.0}, 'Road tax': {'annualCost': 0.0}}, 'Family': {'School fees / activities': {'annualCost': 0.0}, 'Birthday & Christmas gifts': {'annualCost': 0.0}}, 'Lifestyle': {'Holidays & travel': {'annualCost': 3000.0}, 'Clothing & seasonal wardrobe': {'annualCost': 0.0}}, 'Health': {'Dental / medical (annual)': {'annualCost': 900.0}}, 'Other': {'Other annual cost 1': {'annualCost': 0.0}, 'Other annual cost 2': {'annualCost': 0.0}, 'Other annual cost 3': {'annualCost': 0.0}}}}, 'Net Position Snapshot': {'liquidityReserve': {'items': {'Cash & Immediate Access Buffers': {'currentValue': 15000.0}}}, 'wealthVelocityAssets': {'items': {'Investments (funds, stocks, ETFs)': {'currentValue': 42000.0}, 'Pension / retirement accounts': {'currentValue': 38000.0}, 'Property — full market value': {'currentValue': 95000.0}, 'Other wealth-building assets': {'currentValue': 7000.0}}}, 'structuralLiabilities': {'items': {'Mortgage': {'currentValue': 120000.0}, 'Car loan': {'currentValue': 14000.0}, 'Student loans': {'currentValue': 9000.0}, 'Credit cards & short-term debt': {'currentValue': 2500.0}, 'Other liabilities': {'currentValue': 1000.0}}}}, 'Monthly Activation': {'income': {'net_income': 5200.0, 'secondary_income': 850.0, 'other_income': 200.0, 'total_income': 6250.0}, 'essentials': {'housing': 1600.0, 'food': 650.0, 'transport': 300.0, 'insurance': 250.0, 'phone': 60.0, 'internet': 80.0, 'subscriptions': 45.0, 'loans': 400.0, 'childcare': 500.0, 'gym': 40.0, 'other_essentials': 150.0, 'total_essentials': 4075.0, 'essentials_percentage': 65.2}, 'committed_money': {'savings': 700.0, 'investments': 500.0, 'extra_debt_payments': 200.0, 'total_committed': 1400.0, 'committed_percentage': 22.4}, 'irregular_expenses': {'items': [{'name': 'Car Maintenance', 'annual_cost': 1200.0, 'monthly_allocation': 100.0}, {'name': 'Vacation', 'annual_cost': 3000.0, 'monthly_allocation': 250.0}, {'name': 'Medical Expenses', 'annual_cost': 900.0, 'monthly_allocation': 75.0}], 'total_annual_irregular': 5100.0, 'total_monthly_allocation': 425.0, 'irregular_percentage': 6.8}, 'discretionary': {'total_discretionary': 350.0, 'discretionary_percentage': 5.6}, 'net_position': {'assets': {'liquidity_reserve': 15000.0, 'investments_balance': 42000.0, 'pension_balance': 38000.0, 'property_equity': 95000.0, 'other_assets': 7000.0, 'total_assets': 197000.0}, 'liabilities': {'mortgage_balance': 120000.0, 'car_or_boat_loan': 14000.0, 'student_loan': 9000.0, 'credit_and_short_term': 2500.0, 'other_liabilities': 1000.0, 'total_liabilities': 146500.0}, 'net_worth': 50500.0}, 'budget_summary': {'total_monthly_income': 6250.0, 'total_monthly_expenses': 5900.0, 'monthly_surplus': 350.0, 'budget_allocation': {'essentials_percentage': 65.2, 'committed_percentage': 22.4, 'irregular_percentage': 6.8, 'discretionary_percentage': 5.6}}}}
 excel = CreateExcel()
 excel.update_excel(data=data)
 

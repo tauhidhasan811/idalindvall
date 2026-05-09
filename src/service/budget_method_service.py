@@ -1,16 +1,34 @@
 from src.core.generate_prompt import GeneratePrompt
 from src.core.data_processor import ProcessData
+from src.core.create_excel import CreateExcel
 from api.schema.budget_method_schema import BudgetMethodInput
 
 class BudgetMethodService:
 
     @staticmethod
     def calculate_data(user_input, chat_model):
-        prompt = GeneratePrompt.budget_method_prompt(input_data=user_input)
-        response = chat_model.get_response(prompt=prompt)
-        # print(type(response))
-        clean_response = ProcessData.CleanData(response.content)
-        return clean_response
+
+        data ={}
+        methods = ["Command Center", "Irregular Expense System", "Net Position Snapshot", "Monthly Activation"]
+        for m in methods:
+            prompt = GeneratePrompt.budget_method_prompt(input_data=user_input, budget_method_name=m)
+            response = chat_model.get_response(prompt=prompt)
+            # print(type(response))
+            clean_response = ProcessData.CleanData(response.content)
+
+            data[m] = clean_response
+
+        print('=' * 60)
+        print(data)
+        print('*' * 40)
+        print(type(data))
+        print('*' * 40)
+
+        print('=' * 60)
+
+        excel = CreateExcel()
+        excel.update_excel(data=data)
+        return data
     
     @staticmethod
     def convert_data_to_dict(budget_method: BudgetMethodInput):
