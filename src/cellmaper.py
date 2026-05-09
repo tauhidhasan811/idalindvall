@@ -1,0 +1,98 @@
+from datetime import datetime
+
+
+def get_cell_map(data, budget_method_name):
+
+    current_month = datetime.now().strftime("%B")
+
+    # =========================
+    # Command Center
+    # =========================
+    if budget_method_name == "Command Center":
+        return {
+            "B11": data["monthly_income"]["primary_income"],
+            "B12": data["monthly_income"]["secondary_income"],
+            "B13": data["monthly_income"]["other_income"],
+
+            "C19": data["structural_allocation"]["essentials"]["your_percentage"],
+
+            "C20": data["structural_allocation"]["wealth_building"]["your_percentage"],
+            "E20": data["structural_allocation"]["wealth_building"]["status"],
+
+            "C21": data["structural_allocation"]["future_buffer"]["your_percentage"],
+            "E21": data["structural_allocation"]["future_buffer"]["status"],
+
+            "C22": data["structural_allocation"]["guilt_free_living"]["your_percentage"],
+            "E22": data["structural_allocation"]["guilt_free_living"]["status"],
+
+            "B28": data["irregular_expense_provision"]["monthly_irregular_provision"]
+        }
+
+    # =========================
+    # Irregular Expense System
+    # =========================
+    elif budget_method_name == "Irregular Expense System":
+        return {
+
+            # Home & Property
+            "B11": data["categories"]["Home & Property"]["Home insurance (annual)"]["annualCost"],
+            "B12": data["categories"]["Home & Property"]["Home maintenance & repairs"]["annualCost"],
+
+            # Transport
+            "B16": data["categories"]["Transport"]["Car insurance (annual)"]["annualCost"],
+            "B17": data["categories"]["Transport"]["Car service / MOT"]["annualCost"],
+            "B18": data["categories"]["Transport"]["Road tax"]["annualCost"],
+
+            # Family
+            "B22": data["categories"]["Family"]["School fees / activities"]["annualCost"],
+            "B24": data["categories"]["Family"]["Birthday & Christmas gifts"]["annualCost"],
+
+            # Lifestyle
+            "B27": data["categories"]["Lifestyle"]["Holidays & travel"]["annualCost"],
+            "B28": data["categories"]["Lifestyle"]["Clothing & seasonal wardrobe"]["annualCost"],
+
+            # Health
+            "B32": data["categories"]["Health"]["Dental / medical (annual)"]["annualCost"],
+
+            # Other
+            "B37": data["categories"]["Other"]["Other annual cost 1"]["annualCost"],
+            "B38": data["categories"]["Other"]["Other annual cost 2"]["annualCost"],
+            "B39": data["categories"]["Other"]["Other annual cost 3"]["annualCost"],
+        }
+
+    # =========================
+    # Net Position Snapshot
+    # =========================
+    elif budget_method_name == "Net Position Snapshot":
+        print(budget_method_name)
+        return {
+
+            # Liquidity Reserve
+            "B12": data["Net Position Snapshot"]["liquidityReserve"]["items"]["Cash & Immediate Access Buffers"]["currentValue"],
+
+            # Wealth Velocity Assets
+            "B16": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Investments (funds, stocks, ETFs)"]["currentValue"],
+            "B17": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Pension / retirement accounts"]["currentValue"],
+            "B18": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Property — full market value"]["currentValue"],
+            "B19": data["Net Position Snapshot"]["wealthVelocityAssets"]["items"]["Other wealth-building assets"]["currentValue"],
+
+            # Structural Liabilities
+            "B24": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Mortgage"]["currentValue"],
+            "B25": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Car loan"]["currentValue"],
+            "B26": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Student loans"]["currentValue"],
+            "B27": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Credit cards & short-term debt"]["currentValue"],
+            "B28": data["Net Position Snapshot"]["structuralLiabilities"]["items"]["Other liabilities"]["currentValue"],
+        }
+
+    # =========================
+    # Monthly Activation
+    # =========================
+    elif budget_method_name == "Monthly Activation":
+        return {
+            "B10": current_month
+        }
+
+    # =========================
+    # Default Empty Response
+    # =========================
+    return {}
