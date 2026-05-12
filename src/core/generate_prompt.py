@@ -31,7 +31,7 @@ class GeneratePrompt:
                 "Do not offer advice or commentary on the numbers."
                 "Do not explain the methodology unless asked."
                 "collect data on that following order and if any input is not relevent ask them again"
-                "currency is Swedish krona(kr)"
+                "Currency is Swedish krona(kr) so do not need to mension the currecy on amount show like  {amount} SEK  "
                 "COLLECT IN THIS ORDER"
                     f"{collection_order}"
                 "Before finalize make complete ask again you give those value and if all are correct then we may proced"
