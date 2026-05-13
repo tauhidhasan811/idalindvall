@@ -12,27 +12,20 @@ class ProcessData:
     @staticmethod
     def process_chat_history(chat_history: List[Dict]):
         last_conv = {}
-        if len(chat_history)> 0:
-            chat = chat_history[-1]
-            last_conv['ai_question'] = chat.get("ai_question", "No Question")
-            last_conv['user_answer'] = chat.get("user_answer", "No response")
-        chat_history.pop()
+        history = list(chat_history)
+        if len(history) > 0:
+            chat = history[-1]
+            last_conv["ai_question"] = chat.get("ai_question", "No Question")
+            last_conv["user_answer"] = chat.get("user_answer", "No response")
+            history = history[:-1]
 
-        return last_conv, chat_history
+        return last_conv, history
     
     @staticmethod
     def CleanData(text):
-        # Step 1: Remove all literal backslashes
-        cleaned = text.replace("\\", "")
-
-        # Step 2: Remove backticks (` or ``` )
-        cleaned = re.sub(r"`{1,3}", "", cleaned)
-
-        # Step 3: Remove code language keywords (json, bash, python, etc.)
-        cleaned = re.sub(r'\b(json|bash|python)\b', '', cleaned, flags=re.IGNORECASE)
-
-        # Step 4: Remove newlines and extra spaces
-        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+        cleaned = text.strip()
+        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(r"\s*```$", "", cleaned)
 
         # print(f"Cleaned text: {cleaned}")  # For debugging, see how it's being cleaned.
 

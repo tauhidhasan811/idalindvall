@@ -15,18 +15,18 @@ chat_model = ChatController()
 @router.post('/chat')
 async def create_new_session(chat_data: ChatSchema):
     try:
-        if chat_data.financial_section not in params['sections']:
-            return JSONResponse(
-                status_code=400,
-                content={
-                    'status': False,
-                    'status_code': 400,
-                    'message': f"Only accepted {params['sections']} sections"
-                }
-            )
+        # if chat_data.financial_section not in params['sections']:
+        #     return JSONResponse(
+        #         status_code=400,
+        #         content={
+        #             'status': False,
+        #             'status_code': 400,
+        #             'message': f"Only accepted {params['sections']} sections"
+        #         }
+        #     )
         chat_history_dict = [item.dict() for item in chat_data.chat_history]
-        financial_section = chat_data.financial_section
-        response = IncomeService.analysis_chat(financial_section=financial_section,
+        # financial_section = chat_data.financial_section
+        response = IncomeService.analysis_chat(#financial_section=financial_section,
                                             chat_history=chat_history_dict, 
                                             chat_model=chat_model)
         
