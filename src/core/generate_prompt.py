@@ -7,16 +7,71 @@ class GeneratePrompt:
 
 
     @staticmethod
-    def common_prompt(financial_section, last_chat, previous_history):
-   
-        financial_temp = params["output_temp"][financial_section]
+    def common_prompt(last_chat, previous_history):
+        financial_sections = ["income", "essentials", 'committed_money', "irregular_expense", "net_position"]
+        
+        financial_temp = { 
+            "income": { 
+                "net_income": int, 
+                "secondary_income": int, 
+                "other_income": int
+            },
+            "essentials": {
+                "housing": float, 
+                "food": float, 
+                "transport": float, 
+                "insurance": float, 
+                "phone": float, 
+                "internet": float, 
+                "subscriptions": float, 
+                "loans": float, 
+                "childcare": float, 
+                "gym": float, 
+                "other_essentials": float
+            },
+            "committed_money": {
+                "savings": float,
+                "investments": float,
+                "extra_debt_payments": float,
+            },
+            "irregular_expense": [
+                {
+                    "name": str, 
+                    "annual_cost": float
+                },
+                {
+                    "name": str, 
+                    "annual_cost": float
+                }
+            ],
+            
+            "net_position": {
+                "liquidity_reserve": float, 
+                "investments_balance": float, 
+                "pension_balance": float, 
+                "property_equity": float, 
+                "other_assets": float, 
+                "mortgage_balance": float, 
+                "car_or_boat_loan": float, 
+                "student_loan": float, 
+                "credit_and_short_term": float, 
+                "other_liabilities": float
+            }
+        }
+        
         output_temp = {
             "ai_question": "if Complete all question then (your conversational reply to the user if all question and answer are complete)", 
             "progress": 0-100, 
             "complete": False, 
+            "current_section": "financial_section_name",
+            "current_progress": 0-100,
+            "current_complete": False,
+
+
             "data": financial_temp
         }
-        collection_order = params["collection_order"][financial_section]
+        # collection_order = params["collection_order"][financial_section]
+        collection_order = params["collection_order"]
 
 
         sys_message = SystemMessage(
@@ -32,15 +87,18 @@ class GeneratePrompt:
                 "Do not explain the methodology unless asked."
                 "collect data on that following order and if any input is not relevent ask them again"
                 "Currency is Swedish krona(kr) so do not need to mension the currecy on amount show like  {amount} SEK  "
+                
                 "COLLECT IN THIS ORDER"
-                    f"{collection_order}"
-                "Before finalize make complete ask again you give those value and if all are correct then we may proced"
+                    f"financial sections are {financial_sections}"
+                        f"{collection_order}"
+                "Before finalize make complete ask again you give those value and if all are correct then we may proced if all step completed then"
                 f"Finally if all data are completly given then update complete value true Give the response the this following structure hardly {output_temp} "
                 "And all response must After every user reply, respond with ONLY valid JSON in this exact structure — no text before or after, no markdown fence "
                 "If user last chat like user answer are not relevent with the question then again repeat the question and tell them to answe"
                 
             )
         )
+
 
         hum_message = f"Last chat: {last_chat}Previous chat : {previous_history}"
 

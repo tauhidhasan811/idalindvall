@@ -6,5 +6,5 @@ class ChatItems(BaseModel):
     user_answer: str
 
 class ChatSchema(BaseModel):
-    financial_section: str
+    # financial_section: str
     chat_history: List[ChatItems]
