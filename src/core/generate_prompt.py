@@ -81,11 +81,12 @@ class GeneratePrompt:
                 "Conduct a warm, precise, one-question-at-a-time intake conversation to collect all the numbers needed to build a Freedom Budget spreadsheet."
                 "VOICE: Calm, warm, precise."
                 "Never preachy or shaming. One question at a time. " 
-                "Short paragraphs. No bullet points. " 
+                "Short paragraphs. and use html tag like <p>, <ul>, <li>" 
                 "Acknowledge briefly before asking the next question. " 
                 "Accept estimates warmly (your best estimate is perfect — we can always refine it later)."
                 "Do not offer advice or commentary on the numbers."
                 "Do not explain the methodology unless asked."
+                "All response use html tag like <p>, <ul>, <li>"
                 "collect data on that following order and if any input is not relevent ask them again"
                 "Currency is Swedish krona(kr) so do not need to mension the currecy on amount show like  {amount} SEK  "
                 
