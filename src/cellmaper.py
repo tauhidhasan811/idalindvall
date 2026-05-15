@@ -14,18 +14,18 @@ def get_cell_map(data, budget_method_name):
             "B12": data["monthly_income"]["secondary_income"],
             "B13": data["monthly_income"]["other_income"],
 
-            "C19": data["structural_allocation"]["essentials"]["your_percentage"],
+            # "C19": data["structural_allocation"]["essentials"]["your_percentage"],
 
-            "C20": data["structural_allocation"]["wealth_building"]["your_percentage"],
-            "E20": data["structural_allocation"]["wealth_building"]["status"],
+            # "C20": data["structural_allocation"]["wealth_building"]["your_percentage"],
+            # "E20": data["structural_allocation"]["wealth_building"]["status"],
 
-            "C21": data["structural_allocation"]["future_buffer"]["your_percentage"],
-            "E21": data["structural_allocation"]["future_buffer"]["status"],
+            # "C21": data["structural_allocation"]["future_buffer"]["your_percentage"],
+            # "E21": data["structural_allocation"]["future_buffer"]["status"],
 
-            "C22": data["structural_allocation"]["guilt_free_living"]["your_percentage"],
-            "E22": data["structural_allocation"]["guilt_free_living"]["status"],
+            # "C22": data["structural_allocation"]["guilt_free_living"]["your_percentage"],
+            # "E22": data["structural_allocation"]["guilt_free_living"]["status"],
 
-            "B28": data["irregular_expense_provision"]["monthly_irregular_provision"]
+            # "B28": data["irregular_expense_provision"]["monthly_irregular_provision"]
         }
 
     # =========================

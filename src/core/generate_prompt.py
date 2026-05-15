@@ -70,6 +70,7 @@ class GeneratePrompt:
 
             "data": financial_temp
         }
+        
         # collection_order = params["collection_order"][financial_section]
         collection_order = params["collection_order"]
 
