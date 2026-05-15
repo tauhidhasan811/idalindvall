@@ -99,11 +99,23 @@ params = {
 cell_design = {
     "Command Center":{
         "B11", "B12", "B13",
-            "D19", "D20", "D21", "D22",
-            "B28", "B32", "B33", "B34", "B35"
+        "D19", "D20", "D21", "D22",
+        "B28", "B32", "B33", "B34", "B35"
     },
-    "Irregular Expense System": {}, 
-    "Net Position Snapshot": {}, 
-    "Monthly Activation": {}
+    "Irregular Expense System": {
+        "B11", "B12", "B13",
+        "B16", "B17", "B18",
+        "B22", "B23", "B24",
+        "B27", "B28", "B29",
+        "B32", "B33", "B34",
+        "B37", "B38", "B39",
+    }, 
+    "Net Position Snapshot": {
+        "B16", "B17", "B18", "B19",
+        "B24", "B25", "B26", "B27", "B28"
+    }, 
+    "Monthly Activation": {
+        "B11"
+    }
 }
             

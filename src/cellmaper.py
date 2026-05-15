@@ -3,7 +3,8 @@ from datetime import datetime
 
 def get_cell_map(data, budget_method_name):
 
-    current_month = datetime.now().strftime("%B")
+    # current_month = datetime.now().strftime("%B")
+    current_month_year = datetime.now().strftime("%B %Y")
 
     # =========================
     # Command Center
@@ -37,22 +38,29 @@ def get_cell_map(data, budget_method_name):
             # Home & Property
             "B11": data["categories"]["Home & Property"]["Home insurance (annual)"]["annualCost"],
             "B12": data["categories"]["Home & Property"]["Home maintenance & repairs"]["annualCost"],
+            "B13": data["categories"]["Home & Property"]["Appliance replacement fund"]["annualCost"],
 
             # Transport
             "B16": data["categories"]["Transport"]["Car insurance (annual)"]["annualCost"],
             "B17": data["categories"]["Transport"]["Car service / MOT"]["annualCost"],
             "B18": data["categories"]["Transport"]["Road tax"]["annualCost"],
+            "B19": data["categories"]["Transport"]["Tyres & maintenance"]["annualCost"],
+
 
             # Family
             "B22": data["categories"]["Family"]["School fees / activities"]["annualCost"],
+            "B23": data["categories"]["Family"]["Children's clothing & equipment"]["annualCost"],
             "B24": data["categories"]["Family"]["Birthday & Christmas gifts"]["annualCost"],
 
             # Lifestyle
             "B27": data["categories"]["Lifestyle"]["Holidays & travel"]["annualCost"],
             "B28": data["categories"]["Lifestyle"]["Clothing & seasonal wardrobe"]["annualCost"],
-
+            "B29": data["categories"]["Lifestyle"]["Annual memberships"]["annualCost"],
             # Health
             "B32": data["categories"]["Health"]["Dental / medical (annual)"]["annualCost"],
+            "B33": data["categories"]["Health"]["Glasses / contacts"]["annualCost"],
+            "B34": data["categories"]["Health"]["Other health costs"]["annualCost"],
+
 
             # Other
             "B37": data["categories"]["Other"]["Other annual cost 1"]["annualCost"],
@@ -88,7 +96,11 @@ def get_cell_map(data, budget_method_name):
     # =========================
     elif budget_method_name == "Monthly Activation":
         return {
-            "B10": current_month
+            # "B10": current_month
+            "B10": current_month_year,
+            "B11": data["Income this month (after tax)"]
+
+
         }
 
     # =========================
