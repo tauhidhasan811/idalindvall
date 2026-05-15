@@ -14,13 +14,18 @@ class BudgetMethodService:
 
         data ={}
         methods = ["Command Center", "Irregular Expense System", "Net Position Snapshot", "Monthly Activation"]
-        for m in methods:
-            prompt = GeneratePrompt.budget_method_prompt(input_data=user_input, budget_method_name=m)
-            response = chat_model.get_response(prompt=prompt)
-            # print(type(response))
-            clean_response = ProcessData.CleanData(response.content)
+        # for m in methods:
+        #     prompt = GeneratePrompt.budget_method_prompt(input_data=user_input, budget_method_name=m)
+        #     response = chat_model.get_response(prompt=prompt)
+        #     # print(type(response))
+        #     clean_response = ProcessData.CleanData(response.content)
 
-            data[m] = clean_response
+        #     data[m] = clean_response
+        prompt = GeneratePrompt.budget_method_prompt(input_data=user_input)
+        response = chat_model.get_response(prompt=prompt)
+        # print(type(response))
+        data = ProcessData.CleanData(response.content)
+
 
         print('=' * 60)
         print(data)
@@ -36,6 +41,8 @@ class BudgetMethodService:
         result = cloudinary.upload_data_to_cloudinary(path)
         os.remove(path)
         return result
+        # return path
+        # return data
     
     @staticmethod
     def convert_data_to_dict(budget_method: BudgetMethodInput):

@@ -119,9 +119,13 @@ class GeneratePrompt:
     
 
     @staticmethod
-    def budget_method_prompt(input_data, budget_method_name):
+    # def budget_method_prompt(input_data, budget_method_name):
+    def budget_method_prompt(input_data):
 
-        output_temp = budget_prompt_temp[budget_method_name]
+
+        # output_temp = budget_prompt_temp[budget_method_name]
+        output_temp = budget_prompt_temp
+
         sys_message = SystemMessage(
             content=(
                 "You are the intake guide for The Freedom Budget Method by Ida Lindvall. "
