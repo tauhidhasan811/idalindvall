@@ -1,16 +1,89 @@
+from src.core.create_excel import CreateExcel
+
+data = {
+        "Command Center": {
+            "monthly_income": {
+                "primary_income": 6300,
+                "secondary_income": 1800,
+                "other_income": 2050,
+            }
+        },
+    "Irregular Expense System": {
+        "categories": {
+            "Home & Property": {
+                "Home insurance (annual)":      { "annualCost": 0.0 },
+                "Home maintenance & repairs":   { "annualCost": 0.0 }
+            },
+
+            "Transport": {
+                "Car insurance (annual)":       { "annualCost": 0.0 },
+                "Car service / MOT":            { "annualCost": 0.0 },
+                "Road tax":                     { "annualCost": 0.0 }
+            },
+
+            "Family": {
+                "School fees / activities":         { "annualCost": 0.0 },
+                "Birthday & Christmas gifts":       { "annualCost": 0.0 }
+            },
+
+            "Lifestyle": {
+                "Holidays & travel":                { "annualCost": 0.0 },
+                "Clothing & seasonal wardrobe":     { "annualCost": 0.0 }
+            },
+
+            "Health": {
+                "Dental / medical (annual)":        { "annualCost": 0.0 }
+            },
+
+            "Other": {
+                "Other annual cost 1":              { "annualCost": 0.0 },
+                "Other annual cost 2":              { "annualCost": 0.0 },
+                "Other annual cost 3":              { "annualCost": 0.0 }
+            }
+        }
+    },
+
+    "Net Position Snapshot": {
+        "liquidityReserve": {
+            "items": {
+                "Cash & Immediate Access Buffers": { "currentValue": 0.0 }
+            }
+        },
+
+        "wealthVelocityAssets": {
+            "items": {
+                "Investments (funds, stocks, ETFs)":    { "currentValue": 0.0 },
+                "Pension / retirement accounts":        { "currentValue": 0.0 },
+                "Property — full market value":         { "currentValue": 0.0 },
+                "Other wealth-building assets":         { "currentValue": 0.0 }
+            }
+        },
+
+        "structuralLiabilities": {
+            "items": {
+                "Mortgage":                         { "currentValue": 0.0 },
+                "Car loan":                         { "currentValue": 0.0 },
+                "Student loans":                    { "currentValue": 0.0 },
+                "Credit cards & short-term debt":   { "currentValue": 0.0 },
+                "Other liabilities":                { "currentValue": 0.0 }
+            }
+        }
+    },
+
+    "Monthly Activation": {}
+    }
+excel = CreateExcel()
+path = excel.update_excel(data=data)
+from openpyxl import load_workbook
+print(path)
 
 
-# from src.core.create_excel import CreateExcel
+
+wb = load_workbook(path)
+
+print(wb.sheetnames)
 
 
-# data = {'Command Center': {'monthly_income': {'primary_income': 5200.0, 'secondary_income': 850.0, 'other_income': 200.0}, 'structural_allocation': {'essentials': {'your_percentage': 56.04}, 'wealth_building': {'your_percentage': 13.48, 'status': ''}, 'future_buffer': {'your_percentage': 30.48, 'status': ''}, 'guilt_free_living': {'your_percentage': 0.0, 'status': ''}}, 'irregular_expense_provision': {'monthly_irregular_provision': 425.0}}, 'Irregular Expense System': {'categories': {'Home & Property': {'Home insurance (annual)': {'annualCost': 0.0}, 'Home maintenance & repairs': {'annualCost': 0.0}}, 'Transport': {'Car insurance (annual)': {'annualCost': 0.0}, 'Car service / MOT': {'annualCost': 1200.0}, 'Road tax': {'annualCost': 0.0}}, 'Family': {'School fees / activities': {'annualCost': 0.0}, 'Birthday & Christmas gifts': {'annualCost': 0.0}}, 'Lifestyle': {'Holidays & travel': {'annualCost': 3000.0}, 'Clothing & seasonal wardrobe': {'annualCost': 0.0}}, 'Health': {'Dental / medical (annual)': {'annualCost': 900.0}}, 'Other': {'Other annual cost 1': {'annualCost': 0.0}, 'Other annual cost 2': {'annualCost': 0.0}, 'Other annual cost 3': {'annualCost': 0.0}}}}, 'Net Position Snapshot': {'liquidityReserve': {'items': {'Cash & Immediate Access Buffers': {'currentValue': 15000.0}}}, 'wealthVelocityAssets': {'items': {'Investments (funds, stocks, ETFs)': {'currentValue': 42000.0}, 'Pension / retirement accounts': {'currentValue': 38000.0}, 'Property — full market value': {'currentValue': 95000.0}, 'Other wealth-building assets': {'currentValue': 7000.0}}}, 'structuralLiabilities': {'items': {'Mortgage': {'currentValue': 120000.0}, 'Car loan': {'currentValue': 14000.0}, 'Student loans': {'currentValue': 9000.0}, 'Credit cards & short-term debt': {'currentValue': 2500.0}, 'Other liabilities': {'currentValue': 1000.0}}}}, 'Monthly Activation': {'income': {'net_income': 5200.0, 'secondary_income': 850.0, 'other_income': 200.0, 'total_income': 6250.0}, 'essentials': {'housing': 1600.0, 'food': 650.0, 'transport': 300.0, 'insurance': 250.0, 'phone': 60.0, 'internet': 80.0, 'subscriptions': 45.0, 'loans': 400.0, 'childcare': 500.0, 'gym': 40.0, 'other_essentials': 150.0, 'total_essentials': 4075.0, 'essentials_percentage': 65.2}, 'committed_money': {'savings': 700.0, 'investments': 500.0, 'extra_debt_payments': 200.0, 'total_committed': 1400.0, 'committed_percentage': 22.4}, 'irregular_expenses': {'items': [{'name': 'Car Maintenance', 'annual_cost': 1200.0, 'monthly_allocation': 100.0}, {'name': 'Vacation', 'annual_cost': 3000.0, 'monthly_allocation': 250.0}, {'name': 'Medical Expenses', 'annual_cost': 900.0, 'monthly_allocation': 75.0}], 'total_annual_irregular': 5100.0, 'total_monthly_allocation': 425.0, 'irregular_percentage': 6.8}, 'discretionary': {'total_discretionary': 350.0, 'discretionary_percentage': 5.6}, 'net_position': {'assets': {'liquidity_reserve': 15000.0, 'investments_balance': 42000.0, 'pension_balance': 38000.0, 'property_equity': 95000.0, 'other_assets': 7000.0, 'total_assets': 197000.0}, 'liabilities': {'mortgage_balance': 120000.0, 'car_or_boat_loan': 14000.0, 'student_loan': 9000.0, 'credit_and_short_term': 2500.0, 'other_liabilities': 1000.0, 'total_liabilities': 146500.0}, 'net_worth': 50500.0}, 'budget_summary': {'total_monthly_income': 6250.0, 'total_monthly_expenses': 5900.0, 'monthly_surplus': 350.0, 'budget_allocation': {'essentials_percentage': 65.2, 'committed_percentage': 22.4, 'irregular_percentage': 6.8, 'discretionary_percentage': 5.6}}}}
-# excel = CreateExcel()
-# excel.update_excel(data=data)
-
-# from src.config.config_cloudinary import ConfigCloudinary
-
-# cloudinary = ConfigCloudinary()
-
-# result = cloudinary.upload_data_to_cloudinary('updated_file.xlsx')
-# print(result)
-
+sheet = wb['Command Center']
+for row in sheet.iter_rows(values_only=True):
+    print(row)
