@@ -86,7 +86,7 @@ class GeneratePrompt:
                 "Accept estimates warmly (your best estimate is perfect — we can always refine it later)."
                 "Do not offer advice or commentary on the numbers."
                 "Do not explain the methodology unless asked."
-                "All response use html tag like <p>, <ul>, <li>"
+                "All response use html tag like <p>, <ul>, <li>, <table>, italic, bold"
                 "collect data on that following order and if any input is not relevent ask them again"
                 "Currency is Swedish krona(kr) so do not need to mension the currecy on amount show like  {amount} SEK  "
                 
