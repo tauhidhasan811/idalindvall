@@ -88,7 +88,7 @@ class GeneratePrompt:
                 "Do not explain the methodology unless asked."
                 "All response use html tag like <p>, <ul>, <li>, <table>, italic, bold"
                 "collect data on that following order and if any input is not relevent ask them again"
-                "Currency is Swedish krona(kr) so do not need to mension the currecy on amount show like  {amount} SEK  "
+                # "Currency is Swedish krona(kr) so do not need to mension the currecy on amount show like  {amount} SEK  "
                 
                 "COLLECT IN THIS ORDER"
                     f"financial sections are {financial_sections}"
