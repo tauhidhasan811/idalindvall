@@ -34,11 +34,11 @@ class BudgetMethodService:
         print('*' * 40)
         print('=' * 60)
 
-        f_name = str(uuid4())
+        f_name = f"budget_data_{uuid4()}"
         excel = CreateExcel(f_name=f_name)
         path = excel.update_excel(data=data)
 
-        result = cloudinary.upload_data_to_cloudinary(path)
+        result = cloudinary.upload_data_to_cloudinary(path, public_id=f_name)
         os.remove(path)
         return result
         # return path
