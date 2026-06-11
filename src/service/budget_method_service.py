@@ -104,13 +104,13 @@ TRANSFORMATION REQUIRED:
         # Ensure all irregular expenses are properly formatted as annual costs
         data = BudgetMethodService.ensure_annual_irregular_expenses(data)
 
-        print('=' * 60)
-        print("Transformed data:")
-        print(data)
-        print('*' * 40)
-        print(type(data))
-        print('*' * 40)
-        print('=' * 60)
+        # print('=' * 60)
+        # print("Transformed data:")
+        # print(data)
+        # print('*' * 40)
+        # print(type(data))
+        # print('*' * 40)
+        # print('=' * 60)
 
         f_name = f"budget_data_{uuid4()}"
         excel = CreateExcel(f_name=f_name)

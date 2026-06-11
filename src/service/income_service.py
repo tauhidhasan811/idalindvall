@@ -26,7 +26,7 @@ class IncomeService:
         #     prompt = GeneratePrompt.essentials_prompt(last_chat=last_message, previous_history=history)
         
         response = chat_model.get_response(prompt=prompt)
-        print(type(response))
+        # print(type(response))
         clean_response = ProcessData.CleanData(response.content)
         return clean_response
 
