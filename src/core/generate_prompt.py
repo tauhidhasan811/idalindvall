@@ -85,7 +85,18 @@ class GeneratePrompt:
                 "4. FOLLOW THE ORDER: Collect sections in this exact sequence:\n"
                 f"   Sections: {' → '.join(financial_sections)}\n"
                 "5. ACKNOWLEDGMENT ONLY: Brief, warm acknowledgment (1 line max), then ask next question.\n\n"
-                
+                "5. MULTI-FIELD ANSWERS: If the user provides multiple values in one message "
+                "   extract and store ALL of them before moving to the next question.\n"
+                "   e.g. 'transport 400 phone 200 internet 40' → set all three fields in this response.\n\n"
+
+                "6. NO = ZERO: When the user says 'no', 'none', 'n/a', 'I don't have any', "
+                "   store that field as 0, NOT null. Never re-ask a field that is already 0.\n\n"
+
+                "7. EARLY ANSWERS: If the user volunteers a value for a field not yet reached "
+                "   in the collection order, store it now. Skip it when you reach that field later.\n\n"
+
+                "8. SKIP GUARD: Before writing ai_question, scan the entire data object. "
+                "   Only ask about fields that are still null. A 0 is not null.\n\n"
                 "═══ IRREGULAR EXPENSES RULES ═══\n"
                 "When collecting irregular expenses:\n"
                 "- Ask: 'What's one irregular annual expense?' (e.g., holidays, car maintenance, gifts)\n"
