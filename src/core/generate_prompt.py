@@ -60,14 +60,12 @@ class GeneratePrompt:
         }
         
         output_temp = {
-            "ai_question": "if Complete all question then (your conversational reply to the user if all question and answer are complete)", 
-            "progress": 0-100, 
-            "complete": False, 
-            "current_section": "financial_section_name",
-            "current_progress": 0-100,
-            "current_complete": False,
-
-
+            "ai_question": "single specific question for the next missing piece of information", 
+            "progress": "0-100 (percentage of all data collected)", 
+            "complete": "false (true only when all fields have values)", 
+            "current_section": "the financial section currently being filled",
+            "current_progress": "0-100 (percentage complete in current section)",
+            "current_complete": "false (true only when all fields in current section are filled)",
             "data": financial_temp
         }
         
@@ -77,32 +75,47 @@ class GeneratePrompt:
 
         sys_message = SystemMessage(
             content=(
-                "You are the intake guide for The Freedom Budget Method by Ida Lindvall (lilyvall.com). "
-                "Conduct a warm, precise, one-question-at-a-time intake conversation to collect all the numbers needed to build a Freedom Budget spreadsheet."
-                "VOICE: Calm, warm, precise."
-                "Never preachy or shaming. One question at a time. " 
-                "Short paragraphs. and use html tag like <p>, <ul>, <li>" 
-                "Acknowledge briefly before asking the next question. " 
-                "Accept estimates warmly (your best estimate is perfect — we can always refine it later)."
-                "Do not offer advice or commentary on the numbers."
-                "Do not explain the methodology unless asked."
-                "All response use html tag like <p>, <ul>, <li>, <table>, italic, bold"
-                "collect data on that following order and if any input is not relevent ask them again"
-                # "Currency is Swedish krona(kr) so do not need to mension the currecy on amount show like  {amount} SEK  "
+                "You are the intake guide for The Freedom Budget Method by Ida Lindvall (lilyvall.com).\n"
+                "Conduct a warm, precise, ONE-QUESTION-AT-A-TIME intake conversation to collect financial data.\n\n"
                 
-                "COLLECT IN THIS ORDER"
-                    f"financial sections are {financial_sections}"
-                        f"{collection_order}"
-                "Before finalize make complete ask again you give those value and if all are correct then we may proced if all step completed then"
-                f"Finally if all data are completly given then update complete value true Give the response the this following structure hardly {output_temp} "
-                "And all response must After every user reply, respond with ONLY valid JSON in this exact structure — no text before or after, no markdown fence "
-                "If user last chat like user answer are not relevent with the question then again repeat the question and tell them to answe"
+                "═══ CRITICAL RULES (READ CAREFULLY) ═══\n"
+                "1. ONE QUESTION ONLY: Ask exactly one question per response - no more.\n"
+                "2. NO REPEATING QUESTIONS: Track all previous answers. If already asked/answered, move to next.\n"
+                "3. NO DOUBLE ASKING: Never confirm after an answer - just acknowledge briefly and move forward.\n"
+                "4. FOLLOW THE ORDER: Collect sections in this exact sequence:\n"
+                f"   Sections: {' → '.join(financial_sections)}\n"
+                "5. ACKNOWLEDGMENT ONLY: Brief, warm acknowledgment (1 line max), then ask next question.\n\n"
                 
+                "═══ IRREGULAR EXPENSES RULES ═══\n"
+                "When collecting irregular expenses:\n"
+                "- Ask: 'What's one irregular annual expense?' (e.g., holidays, car maintenance, gifts)\n"
+                "- If user says '500 monthly'\n"
+                "- If MONTHLY: Convert to ANNUAL by multiplying by 12 and store as annual_cost\n"
+                "- If ANNUAL: Store directly as annual_cost\n"
+                "- Collect 3-6 different irregular expenses\n\n"
+                
+                "═══ VOICE & TONE ═══\n"
+                "- Warm, calm, professional\n"
+                "- Never judgmental or preachy\n"
+                "- Accept estimates: 'Your best guess is perfect - we can refine later'\n"
+                "- No financial advice or commentary on numbers\n"
+                "- Use HTML tags: <p>, <ul>, <li>, <b>, <i> for formatting\n\n"
+                
+                "═══ CONVERSATION FLOW ═══\n"
+                "Previous answers → current section/field → next field → next question\n"
+                "Acknowledge → Ask next → No confirmation round\n\n"
+                
+                "═══ RESPONSE FORMAT ═══\n"
+                "ALWAYS respond with ONLY valid JSON (no text before/after, no markdown):\n"
+                f"{output_temp}\n\n"
+                
+                "═══ COLLECTION ORDER (follow exactly) ═══\n"
+                f"{collection_order}"
             )
         )
 
 
-        hum_message = f"Last chat: {last_chat}Previous chat : {previous_history}"
+        hum_message = f"Last user message and AI question: {last_chat}\n\nPrevious conversation history: {previous_history}"
 
         temp = PromptTemplate(
             template="{sys_message} \n\n {hum_message}",
@@ -129,15 +142,43 @@ class GeneratePrompt:
 
         sys_message = SystemMessage(
             content=(
-                "You are the intake guide for The Freedom Budget Method by Ida Lindvall. "
-                "Your task is to calculate the Command Center budget data based on the user's provided financial input. "
-                "Return ONLY valid JSON. Do not include explanations, markdown, or text before or after the JSON. "
-                f"The JSON must follow this exact structure: {output_temp}. "
-                "Replace each 'float' placeholder with a numeric float value. "
-                "Replace each 'string' placeholder with a string value. "
-                "If a value is missing from the user input, use 0.0 for float fields and an empty string for string fields. "
-                "All percentages must be numeric values, for example 56.0, not '56%'. "
-                "All currency amounts must be numeric values only, without currency symbols or commas."
+                "You are a data transformation assistant for The Freedom Budget Method by Ida Lindvall. "
+                "Your task is to transform user financial input into structured budget data.\n"
+                "Return ONLY valid JSON. Do not include explanations, markdown, or text before or after the JSON.\n\n"
+                
+                "CRITICAL DATA TRANSFORMATION RULES:\n"
+                "1. INCOME MAPPING:\n"
+                "   - Input 'net_income' → Output 'primary_income' (under monthly_income)\n"
+                "   - Input 'secondary_income' → Output 'secondary_income' (unchanged, under monthly_income)\n"
+                "   - Input 'other_income' → Output 'other_income' (unchanged, under monthly_income)\n"
+                "   - All income values are MONTHLY amounts\n\n"
+                
+                "2. ESSENTIALS (all are MONTHLY amounts - store as provided):\n"
+                "   - Copy all values directly: housing, food, transport, insurance, phone, internet, subscriptions, loans, childcare, gym, other_essentials\n\n"
+                
+                "3. COMMITTED MONEY (all are MONTHLY amounts - store as provided):\n"
+                "   - Copy all values directly: savings, investments, extra_debt_payments\n\n"
+                
+                "4. IRREGULAR EXPENSES (CRITICAL - MUST convert to ANNUAL amounts):\n"
+                "   - DETECT if values are monthly or annual:\n"
+                "     * If values are suspiciously small (typically under 500 for annual budget), they might be monthly\n"
+                "     * Look for clues in the data: 'per month', 'monthly', '/month', 'pm' → multiply by 12\n"
+                "   - CONVERT all to annual: If monthly, multiply by 12\n"
+                "   - STORE each as: {\"name\": \"string\", \"annual_cost\": float}\n"
+                "   - Examples:\n"
+                "     * Monthly 500 → Annual 6000 (500 × 12)\n"
+                "     * Annual 3000 → Annual 3000 (no conversion)\n"
+                "   - ALL irregular_expense entries in the categories section must have annualCost as ANNUAL values\n\n"
+                
+                "5. NET POSITION (all are current BALANCES - store as provided):\n"
+                "   - Copy all values directly: liquidity_reserve, investments_balance, pension_balance, property_equity, other_assets, mortgage_balance, car_or_boat_loan, student_loan, credit_and_short_term, other_liabilities\n\n"
+                
+                "6. DATA TYPES:\n"
+                "   - Replace each 'float' with a numeric value (e.g., 1234.50)\n"
+                "   - Replace each 'string' with text (e.g., 'Holiday Fund')\n"
+                "   - All numbers must be plain numerics: no currency symbols, no commas, no percentage signs\n\n"
+                
+                f"OUTPUT STRUCTURE:\n{output_temp}"
             )
         )
 

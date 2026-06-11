@@ -3,46 +3,56 @@ params = {
     
     "collection_order": {
         "income": (
-            "net_income: Net monthly income (primary, after tax can not zero)"
-            "secondary_income: Secondary income (freelance, rental, side work — may be zero)"
-            "other_income: Other income (child support, government payments, distributions — may  be zero)"
+            "🏦 INCOME SECTION\n"
+            "1. Net income: 'What is your net monthly income (after tax)? This cannot be zero.'\n"
+            "2. Secondary income: 'Do you have secondary income (freelance, rental, side work, etc.)? (may be zero)'\n"
+            "3. Other income: 'Any other income sources (child support, government payments, distributions, etc.)? (may be zero)'\n"
         ),
 
         "essentials": (
-            "housing: Rent or mortgage (or combined if both apply)"
-            "food: Groceries and regular dining combined"
-            "transport: Car payment, fuel, public transport — combined total"
-            "insurance: All insurance policies combined (health, car, home, life)"
-            "phone: Monthly phone bill"
-            "internet: Monthly internet (zero if included in rent)"
-            "subscriptions: All streaming, software, memberships — combined total"
-            "loans: All debt minimum payments (car loan, student loan, credit cards, Klarna, etc.) — combined minimums only"
-            "childcare: Monthly childcare costs (may be zero)"
-            "gym: Gym or fitness costs (may be zero)"
-            "other_essentials: Any other fixed monthly costs not covered above (may be zero)"
+            "📊 ESSENTIALS SECTION (all monthly amounts)\n"
+            "1. Housing: 'What is your monthly housing cost (rent or mortgage)?'\n"
+            "2. Food: 'Monthly groceries and regular dining combined?'\n"
+            "3. Transport: 'Car payment, fuel, public transport - combined total per month?'\n"
+            "4. Insurance: 'All insurance (health, car, home, life) combined per month?'\n"
+            "5. Phone: 'Monthly phone bill?'\n"
+            "6. Internet: 'Monthly internet (zero if included in rent)?'\n"
+            "7. Subscriptions: 'All streaming, software, memberships combined per month?'\n"
+            "8. Loans: 'All debt minimum payments (car, student, credit cards, Klarna, etc.) combined per month?'\n"
+            "9. Childcare: 'Monthly childcare costs? (may be zero)'\n"
+            "10. Gym: 'Gym or fitness costs per month? (may be zero)'\n"
+            "11. Other essentials: 'Any other fixed monthly costs? (may be zero)'\n"
         ),
         "committed_money": (
-            "savings: Monthly savings contribution (may be zero)"
-            "investments: Monthly investment or pension contribution (may be zero)"
-            "extra_debt_payments: Any extra debt payments above minimums (may be zero)"
+            "💰 COMMITTED MONEY SECTION (all monthly amounts)\n"
+            "1. Savings: 'How much do you save monthly? (may be zero)'\n"
+            "2. Investments: 'Monthly investment or pension contribution? (may be zero)'\n"
+            "3. Extra debt payments: 'Any extra debt payments above minimums per month? (may be zero)'\n"
         ),
         "irregular_expense": (
-            "Collect 3–6 annual expenses. For each, get a name and annual cost."
-             "Examples: holidays, Christmas/gifts, car maintenance, home maintenance, boat costs, insurance premiums paid annually, school fees, medical costs."
-             'Store as an array: [{"name": "Holidays", "annual_cost": 40000}, ...]'
-
+            "📅 IRREGULAR EXPENSE SECTION (ANNUAL amounts)\n"
+            "Collect 3–6 annual expenses. For each:\n"
+            "1. Ask: 'What is one annual expense you have?' (e.g., holidays, Christmas gifts, car maintenance, home maintenance, insurance premiums paid annually, school fees, medical costs)\n"
+            "2. Get amount: 'How much does that cost per year?' OR 'Is that yearly or monthly?'\n"
+            "3. If monthly → Multiply by 12 and store as annual_cost\n"
+            "4. If annual → Store directly as annual_cost\n"
+            "5. Store as: {\"name\": \"[expense name]\", \"annual_cost\": [annual value]}\n"
+            "6. Continue collecting until 3-6 irregular expenses are listed\n"
         ),
         "net_position": (
-            "liquidity_reserve: Total cash in savings accounts or emergency fund (current balance, not monthly — may be zero)"
-            "investments_balance: Total value of investment accounts and stocks"
-            "pension_balance: Total pension or retirement account value"
-            "property_equity: Property market value minus mortgage balance (may be zero)"
-            "other_assets: Any other wealth-building assets (e.g. boat, vehicle value — may be zero)"
-            "mortgage_balance: Outstanding mortgage balance (may be zero)"
-            "car_or_boat_loan: Car or boat loan balance (may be zero)"
-            "student_loan: Student loan balance (may be zero)"
-            "credit_and_short_term: Credit cards, Klarna, and other short-term debt — combined balance (may be zero)"
-            "other_liabilities: Any other liabilities (may be zero)"
+            "💎 NET POSITION SECTION (current balances, NOT monthly)\n"
+            "ASSETS:\n"
+            "1. Liquidity reserve: 'Total cash in savings/emergency fund?'\n"
+            "2. Investments balance: 'Total value of investment accounts and stocks?'\n"
+            "3. Pension balance: 'Total pension or retirement account value?'\n"
+            "4. Property equity: 'Property market value minus mortgage balance? (may be zero)'\n"
+            "5. Other assets: 'Any other wealth-building assets like boat, vehicle value? (may be zero)'\n"
+            "LIABILITIES:\n"
+            "6. Mortgage balance: 'Outstanding mortgage balance? (may be zero)'\n"
+            "7. Car or boat loan: 'Car or boat loan balance? (may be zero)'\n"
+            "8. Student loan: 'Student loan balance? (may be zero)'\n"
+            "9. Credit and short-term: 'Credit cards, Klarna, other short-term debt combined balance? (may be zero)'\n"
+            "10. Other liabilities: 'Any other liabilities? (may be zero)'\n"
         ),
     },
     "output_temp": { 
