@@ -12,9 +12,9 @@ class GeneratePrompt:
         
         financial_temp = { 
             "income": { 
-                "net_income": int, 
-                "secondary_income": int, 
-                "other_income": int
+                "net_income": float, 
+                "secondary_income": float, 
+                "other_income": float
             },
             "essentials": {
                 "housing": float, 
@@ -36,11 +36,7 @@ class GeneratePrompt:
             },
             "irregular_expense": [
                 {
-                    "name": str, 
-                    "annual_cost": float
-                },
-                {
-                    "name": str, 
+                    "name": None, 
                     "annual_cost": float
                 }
             ],
@@ -85,25 +81,37 @@ class GeneratePrompt:
                 "4. FOLLOW THE ORDER: Collect sections in this exact sequence:\n"
                 f"   Sections: {' → '.join(financial_sections)}\n"
                 "5. ACKNOWLEDGMENT ONLY: Brief, warm acknowledgment (1 line max), then ask next question.\n\n"
-                "5. MULTI-FIELD ANSWERS: If the user provides multiple values in one message "
+                "6. MULTI-FIELD ANSWERS: If the user provides multiple values in one message "
                 "   extract and store ALL of them before moving to the next question.\n"
                 "   e.g. 'transport 400 phone 200 internet 40' → set all three fields in this response.\n\n"
 
-                "6. NO = ZERO: When the user says 'no', 'none', 'n/a', 'I don't have any', "
+                "7. NO = ZERO: When the user says 'no', 'none', 'n/a', 'I don't have any', "
                 "   store that field as 0, NOT null. Never re-ask a field that is already 0.\n\n"
 
-                "7. EARLY ANSWERS: If the user volunteers a value for a field not yet reached "
+                "8. EARLY ANSWERS: If the user volunteers a value for a field not yet reached "
                 "   in the collection order, store it now. Skip it when you reach that field later.\n\n"
 
-                "8. SKIP GUARD: Before writing ai_question, scan the entire data object. "
+                "9. SKIP GUARD: Before writing ai_question, scan the entire data object. "
                 "   Only ask about fields that are still null. A 0 is not null.\n\n"
+                "10. EXACT REPEAT GUARD: Compare the next ai_question with every previous ai_question. "
+                "If it asks for the same field or same meaning, do not ask it. Move to the next missing field.\n\n"
+                "11. SECTION-CLOSING ANSWERS: If the user says 'no other...', 'nothing else', "
+                "'that's all', 'all are zero', or similar, set every remaining nullable field in the current "
+                "section to 0 and move to the next section. Do not ask the remaining fields one by one.\n\n"
+                "12. BROAD NET POSITION ZERO: In net_position, answers like 'no other net position', "
+                "'all are zero', or 'I do not have any other assets or debts' mean all still-missing "
+                "net_position fields are 0, including student_loan, credit_and_short_term, and other_liabilities.\n\n"
+                "13. BROAD ESSENTIALS ZERO: In essentials, answers like 'no other essentials' or "
+                "'I do not have any subscriptions/memberships' mean subscriptions or other_essentials are 0 "
+                "when those are the active fields. Never repeat the subscriptions question after such an answer.\n\n"
                 "═══ IRREGULAR EXPENSES RULES ═══\n"
                 "When collecting irregular expenses:\n"
                 "- Ask: 'What's one irregular annual expense?' (e.g., holidays, car maintenance, gifts)\n"
                 "- If user says '500 monthly'\n"
                 "- If MONTHLY: Convert to ANNUAL by multiplying by 12 and store as annual_cost\n"
                 "- If ANNUAL: Store directly as annual_cost\n"
-                "- Collect 3-6 different irregular expenses\n\n"
+                "- Collect 3-6 different irregular expenses, unless the user says they have no more. "
+                "If they say no more, stop irregular_expense collection and move to net_position.\n\n"
                 
                 "═══ VOICE & TONE ═══\n"
                 "- Warm, calm, professional\n"
@@ -115,6 +123,9 @@ class GeneratePrompt:
                 "═══ CONVERSATION FLOW ═══\n"
                 "Previous answers → current section/field → next field → next question\n"
                 "Acknowledge → Ask next → No confirmation round\n\n"
+                "Before responding, silently build the latest data object from all previous history and the last user message. "
+                "Then choose the first null field in collection order. If no fields are null, set complete=true and "
+                "ai_question to an empty string.\n\n"
                 
                 "═══ RESPONSE FORMAT ═══\n"
                 "ALWAYS respond with ONLY valid JSON (no text before/after, no markdown):\n"
