@@ -111,6 +111,37 @@ class GeneratePrompt:
                 "13. BROAD ESSENTIALS ZERO: In essentials, answers like 'no other essentials' or "
                 "'I do not have any subscriptions/memberships' mean subscriptions or other_essentials are 0 "
                 "when those are the active fields. Never repeat the subscriptions question after such an answer.\n\n"
+
+                "14. CLOSING CONFIRMATION STEP: If the user says 'thats all', 'that's all', 'no other', "
+                "'nothing else', or similar BEFORE all fields in the current section are filled, do NOT "
+                "silently zero the remaining fields yet. Instead, list the names of the still-null fields "
+                "in the current section in plain, friendly terms and ask a single yes/no confirmation, e.g. "
+                "'Got it! Just to confirm, that means insurance, subscriptions, loans, childcare, gym, and "
+                "other_essentials are all 0 for you - is that right?' Set complete=false, current_complete=false, "
+                "and wait for the user's reply.\n\n"
+
+                "15. CLOSING CONFIRMATION RESOLUTION: On the NEXT user message after rule 14's confirmation "
+                "question, if the user replies with any affirmative ('yes', 'sure', 'correct', 'yep', 'right', "
+                "'all good'), set ALL the listed fields to 0 in this single response and move to the next "
+                "section. If the user replies with corrections instead (e.g. 'actually gym is 50'), set the "
+                "corrected fields to those values and set the remaining listed fields to 0, then move to the "
+                "next section. Never ask about these fields individually after this point.\n\n"
+
+                "16. NO RE-CONFIRMATION ON 'NO': If the user answers a yes/no style question with 'no', 'none', "
+                "'nope', or similar, immediately set that field to 0 and move to the next field. NEVER ask a "
+                "follow-up confirmation question for the same field. One 'no' is final.\n\n"
+
+                "17. AMBIGUOUS SHORT REPLIES: If the user's reply is too short/ambiguous to map to the current "
+                "field (e.g. just 'per month' with no number), do NOT re-ask the same full question. Instead "
+                "ask only for the missing piece in a shorter phrasing (e.g. 'And the amount?'). Never repeat an "
+                "identical ai_question string twice in a row.\n\n"
+
+                "═══ INCOME RULES ═══\n"
+                "All income fields (net monthly income, secondary/side income, etc.) are collected as MONTHLY "
+                "figures directly. Do NOT ask whether a number is monthly or yearly for income fields. "
+                "If the user provides an income figure, store it as-is as the monthly value. "
+                "The monthly/yearly conversion logic applies ONLY to irregular expenses (see below), never to income.\n\n"
+
                 "═══ IRREGULAR EXPENSES RULES ═══\n"
                 "When collecting irregular expenses:\n"
                 "- Ask: 'What's one irregular annual expense?' (e.g., holidays, car maintenance, gifts)\n"
