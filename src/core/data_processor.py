@@ -1,6 +1,6 @@
 import json
 from uuid import uuid4
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 import re
 import ast
@@ -9,18 +9,45 @@ import ast
 
 class ProcessData:
 
+    # @staticmethod
+    # def process_chat_history(chat_history: List[Dict]):
+    #     last_conv = {}
+    #     history = list(chat_history)
+    #     if len(history) > 0:
+    #         chat = history[-1]
+    #         last_conv["ai_question"] = chat.get("ai_question", "No Question")
+    #         last_conv["user_answer"] = chat.get("user_answer", "No response")
+    #         history = history[:-1]
+
+    #     return last_conv, history
+    
     @staticmethod
-    def process_chat_history(chat_history: List[Dict]):
+    def process_chat_history(chat_history: List[Dict]) -> Tuple[Dict, List[Dict], List[Dict]]:
         last_conv = {}
+        latest_10 = []
+        previous_history = []
+
         history = list(chat_history)
-        if len(history) > 0:
+
+        # Last conversation
+        if history:
             chat = history[-1]
-            last_conv["ai_question"] = chat.get("ai_question", "No Question")
-            last_conv["user_answer"] = chat.get("user_answer", "No response")
+            last_conv = {
+                "ai_question": chat.get("ai_question", "No Question"),
+                "user_answer": chat.get("user_answer", "No response"),
+            }
+
+            # Remove the last conversation
             history = history[:-1]
 
-        return last_conv, history
-    
+        # Latest 10 chats (excluding the last conversation)
+        latest_10 = history[-10:]
+
+        # Everything before those 10 chats
+        previous_history = history[:-10]
+
+        return last_conv, latest_10, previous_history
+        
     @staticmethod
     def CleanData(text):
         cleaned = text.strip()

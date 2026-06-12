@@ -11,12 +11,14 @@ class IncomeService:
     def analysis_chat( chat_history: list[dict], chat_model):
 
         # "sections" :["income", "essentials", 'committed_money', "irregular_expense", "net_position"]
-        last_message, history = ProcessData.process_chat_history(chat_history=chat_history)
+        last_message,latest_10,previous_history = ProcessData.process_chat_history(chat_history=chat_history)
 
         prompt = GeneratePrompt.common_prompt(
                     # financial_section=financial_section,
+
                     last_chat=last_message, 
-                    previous_history=history
+                    latest_10 = latest_10,
+                    previous_history=previous_history
                 )
 
         # if financial_section == "income":

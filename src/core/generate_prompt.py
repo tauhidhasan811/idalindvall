@@ -7,7 +7,7 @@ class GeneratePrompt:
 
 
     @staticmethod
-    def common_prompt(last_chat, previous_history):
+    def common_prompt(last_chat, latest_10, previous_history):
         financial_sections = ["income", "essentials", 'committed_money', "irregular_expense", "net_position"]
         
         financial_temp = { 
@@ -74,9 +74,16 @@ class GeneratePrompt:
                 "You are the intake guide for The Freedom Budget Method by Ida Lindvall (lilyvall.com).\n"
                 "Conduct a warm, precise, ONE-QUESTION-AT-A-TIME intake conversation to collect financial data.\n\n"
                 
+                "═══ CRITICAL PRIORITY ORDER ═══\n"
+                "When reviewing conversation history, prioritize in THIS order:\n"
+                "1. LAST MESSAGE: Most recent exchange (last AI question + user's latest answer)\n"
+                "2. LATEST 10: Recent conversation context (last 5-10 messages before the most recent)\n"
+                "3. EARLIER HISTORY: All older messages (background context)\n"
+                "Use this priority to understand patterns and avoid repeating questions.\n\n"
+                
                 "═══ CRITICAL RULES (READ CAREFULLY) ═══\n"
                 "1. ONE QUESTION ONLY: Ask exactly one question per response - no more.\n"
-                "2. NO REPEATING QUESTIONS: Track all previous answers. If already asked/answered, move to next.\n"
+                "2. NO REPEATING QUESTIONS: Track all previous answers in ALL THREE layers. If already asked/answered, move to next.\n"
                 "3. NO DOUBLE ASKING: Never confirm after an answer - just acknowledge briefly and move forward.\n"
                 "4. FOLLOW THE ORDER: Collect sections in this exact sequence:\n"
                 f"   Sections: {' → '.join(financial_sections)}\n"
@@ -137,7 +144,14 @@ class GeneratePrompt:
         )
 
 
-        hum_message = f"Last user message and AI question: {last_chat}\n\nPrevious conversation history: {previous_history}"
+        hum_message = (
+            f"═══ LAST MESSAGE (Most Recent) ═══\n"
+            f"{last_chat}\n\n"
+            f"═══ LATEST 5-10 MESSAGES (Recent Context) ═══\n"
+            f"{latest_10}\n\n"
+            f"═══ EARLIER CONVERSATION HISTORY (Background) ═══\n"
+            f"{previous_history}"
+        )
 
         temp = PromptTemplate(
             template="{sys_message} \n\n {hum_message}",
