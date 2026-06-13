@@ -19,3 +19,4 @@ data/
 *.json
 *.txt
 t.py
+chats/
