@@ -112,7 +112,7 @@ TRANSFORMATION REQUIRED:
         # print('*' * 40)
         # print('=' * 60)
 
-        f_name = f"budget_data_{uuid4()}"
+        f_name = f"budget_data_{uuid4()}.xlsx"
         excel = CreateExcel(f_name=f_name)
         path = excel.update_excel(data=data)
 
