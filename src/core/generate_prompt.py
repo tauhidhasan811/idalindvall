@@ -185,16 +185,16 @@ class GeneratePrompt:
                 "1. liquidity_reserve — Total cash in savings or emergency fund?"
                 "2. investments_balance — Total value of investment accounts and stocks?"
                 "3. pension_balance — ?"
-                "4. property_equity — "
+                "4. property_equity — property full market value"
                 "5. other_assets — ask normally; if user has none, store 0. (This may get incremented later in step 6 or 7.)"
                 "6. mortgage_balance — Do you have any outstanding mortgage balance on that property?"
-                    "If non-zero: ask once → What was the original purchase price of that property? → add that amount to other_assets."
+                    "If non-zero: and if the mortage is gretter them the pont(4. property_equity) them ask sum the mortage and property_equity and ask so total price of the that value and set it on property_equity there"
                         "If 0/none: skip the follow-up entirely."
 
-                "7. car_or_boat_loan — Do you have any loans for vehicles, equipment, or other assets?"
+                "7. car_or_boat_loan — Do you have any loans for vehicles, equipment, boat  or other assets?"
 
-                    "If non-zero AND the original-price question was NOT already asked in step 6: ask once → What was the original purchase price of that asset? → add to other_assets."
-                    "If step 6 already asked it, never ask again here."
+                    "If non-zero AND the original-price question was NOT already asked or  they didi not give the price on other_assets in then ask the original price and set it on other_assets"
+                "If user already give any value or number then do not repeat the question."
 
 
                 "8. student_loan — Do you have any outstanding student loan balance?"
