@@ -50,30 +50,30 @@ class BudgetMethodService:
         net_position = user_input.get("net_position", {})
         
         context = f"""
-INPUT DATA TO TRANSFORM:
+            INPUT DATA TO TRANSFORM:
 
-INCOME (Monthly amounts):
-- net_income: {income.get('net_income', 0)} kr
-- secondary_income: {income.get('secondary_income', 0)} kr
-- other_income: {income.get('other_income', 0)} kr
+            INCOME (Monthly amounts):
+            - net_income: {income.get('net_income', 0)} kr
+            - secondary_income: {income.get('secondary_income', 0)} kr
+            - other_income: {income.get('other_income', 0)} kr
 
-ESSENTIALS (Monthly amounts):
-{essentials}
+            ESSENTIALS (Monthly amounts):
+            {essentials}
 
-COMMITTED MONEY (Monthly amounts):
-{committed_money}
+            COMMITTED MONEY (Monthly amounts):
+            {committed_money}
 
-IRREGULAR EXPENSES (Each item has 'name' and 'amount_period'):
-{irregular_expense}
+            IRREGULAR EXPENSES (Each item has 'name' and 'amount_period'):
+            {irregular_expense}
 
-NET POSITION (Current balances):
-{net_position}
+            NET POSITION (Current balances):
+            {net_position}
 
-TRANSFORMATION REQUIRED:
-1. Map net_income → primary_income under monthly_income
-2. Ensure irregular expenses are stored as annual costs (multiply by 12 if monthly)
-3. Structure output according to the template format
-"""
+            TRANSFORMATION REQUIRED:
+            1. Map net_income → primary_income under monthly_income
+            2. Ensure irregular expenses are stored as annual costs (multiply by 12 if monthly)
+            3. Structure output according to the template format
+            """
         return context
 
     @staticmethod
@@ -117,7 +117,8 @@ TRANSFORMATION REQUIRED:
         path = excel.update_excel(data=data)
 
         result = cloudinary.upload_data_to_cloudinary(path, public_id=f_name)
-        os.remove(path)
+        # os.remove(path)
+        # result = os.path.join("187.77.187.56", path)
         return result
         # return path
         # return data
